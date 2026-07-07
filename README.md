@@ -21,7 +21,7 @@
 
 ## About Me
 
-I am a Computer Science enthusiast from Universitas Darussalam Gontor, focused on building practical software and documenting my learning through public projects. Across 25 public repositories, my work shows a mix of web applications, digital library systems, data exploration notebooks, machine learning experiments, and mobile learning projects.
+I am a Computer Science enthusiast from Universitas Darussalam Gontor, focused on building practical software and documenting my learning through public projects. Across my public repositories, my work shows a mix of web applications, digital library systems, data exploration notebooks, machine learning experiments, and mobile learning projects.
 
 Beyond the public repositories, my local/private work adds more production-oriented experience around Laravel APIs, admin panels, monorepo app structure, React/Vite frontends, Vue dashboards, authentication, roles and permissions, reporting, payments, academic portals, LMS workflows, and library integrations.
 
