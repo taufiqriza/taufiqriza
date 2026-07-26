@@ -41,8 +41,8 @@ const MenuItem = ({
         rounded-lg group 
       ${
         pathname === href
-          ? "bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:!text-neutral-200"
-          : "hover:dark:lg:bg-neutral-800 hover:dark:!text-neutral-300 hover:lg:bg-neutral-200 hover:lg:rounded-lg lg:hover:scale-105 lg:transition-all lg:duration-300"
+          ? "bg-gradient-to-r from-primary/15 to-transparent text-primary dark:!text-primary-300 border border-primary/15"
+          : "hover:dark:lg:bg-neutral-800/80 hover:dark:!text-neutral-300 hover:lg:bg-primary/5 hover:lg:rounded-lg lg:transition-all lg:duration-300"
       }`
   }`;
 
