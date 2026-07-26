@@ -3,7 +3,7 @@ import { BsFillBootstrapFill, BsRobot } from "react-icons/bs";
 import { TbBeach, TbBrandFramerMotion } from "react-icons/tb";
 import { FaNpm, FaGolang } from "react-icons/fa6";
 import {
-  SiCss3,
+  SiCss as SiCss3,
   SiExpress,
   SiFramer,
   SiGithub,
