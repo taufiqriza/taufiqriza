@@ -93,7 +93,7 @@ export const STACKS: SkillProps = {
     icon: <SiVuedotjs size={iconSize} />,
     background: "bg-green-400",
     color: "text-green-400",
-    isActive: false,
+    isActive: true,
   },
   "React.js": {
     icon: <SiReact size={iconSize} />,
@@ -111,25 +111,25 @@ export const STACKS: SkillProps = {
     icon: <SiAstro size={iconSize} />,
     background: "bg-violet-600",
     color: "text-violet-600",
-    isActive: true,
+    isActive: false,
   },
   "Shadcn UI": {
     icon: <SiShadcnui size={iconSize} />,
     background: "bg-neutral-800",
     color: "text-neutral-800",
-    isActive: true,
+    isActive: false,
   },
   "NextAuth.js": {
     icon: <RiShieldKeyholeFill size={iconSize} />,
     background: "bg-slate-800",
     color: "text-slate-800",
-    isActive: true,
+    isActive: false,
   },
   TanStack: {
     icon: <TbBeach size={iconSize} />,
     background: "bg-amber-500",
     color: "text-amber-500",
-    isActive: true,
+    isActive: false,
   },
   "React Table": {
     icon: <SiReacttable size={iconSize} />,
@@ -159,7 +159,7 @@ export const STACKS: SkillProps = {
     icon: <SiZod size={iconSize} />,
     background: "bg-blue-600",
     color: "text-blue-600",
-    isActive: true,
+    isActive: false,
   },
   "Framer Motion": {
     icon: <TbBrandFramerMotion size={iconSize} />,
@@ -177,7 +177,7 @@ export const STACKS: SkillProps = {
     icon: <SiPrisma size={iconSize} />,
     background: "bg-teal-500",
     color: "text-teal-500",
-    isActive: true,
+    isActive: false,
   },
   "Next.js": {
     icon: <SiNextdotjs size={iconSize} />,
@@ -225,13 +225,13 @@ export const STACKS: SkillProps = {
     icon: <SiKotlin size={iconSize} />,
     background: "bg-violet-600",
     color: "text-violet-600",
-    isActive: true,
+    isActive: false,
   },
   "Jetpack Compose": {
     icon: <SiJetpackcompose size={iconSize} />,
     background: "bg-cyan-800",
     color: "text-cyan-800",
-    isActive: true,
+    isActive: false,
   },
   PostgreSql: {
     icon: <BiLogoPostgresql size={iconSize} />,
@@ -249,7 +249,7 @@ export const STACKS: SkillProps = {
     icon: <SiMongodb size={iconSize} />,
     background: "bg-green-600",
     color: "text-green-600",
-    isActive: false,
+    isActive: true,
   },
   Firebase: {
     icon: <SiFirebase size={iconSize} />,
@@ -297,7 +297,7 @@ export const STACKS: SkillProps = {
     icon: <SiBun size={iconSize} />,
     background: "bg-orange-100",
     color: "text-yellow-50",
-    isActive: true,
+    isActive: false,
   },
   Github: {
     icon: <SiGithub size={iconSize} />,

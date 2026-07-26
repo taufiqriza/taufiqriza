@@ -45,8 +45,8 @@ export default function AdminLoginPage() {
 
       <div className="relative w-full max-w-md">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-lg font-black text-black">
-            A
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-lg font-black text-white">
+            T
           </div>
           <h1 className="text-2xl font-semibold tracking-tight">Admin access</h1>
           <p className="mt-2 text-sm text-neutral-500">
@@ -95,7 +95,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-black transition hover:bg-primary-400 disabled:opacity-50"
+            className="w-full rounded-xl bg-primary py-2.5 text-sm font-semibold text-white transition hover:bg-primary-400 disabled:opacity-50"
           >
             {loading ? "Signing in…" : "Sign in"}
           </button>

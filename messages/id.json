@@ -1,11 +1,11 @@
 {
   "HomePage": {
-    "intro": "Halo, saya Satria Bahari",
-    "location": "Berdomisili di Jambi, Indonesia 🇮🇩",
+    "intro": "Halo, saya Muhamad Taufiq Riza",
+    "location": "Berdomisili di Indonesia 🇮🇩",
     "location_type": "Onsite",
     "resume": {
-      "paragraph_1": "Seorang Software Engineer dan kreator konten coding yang berdedikasi untuk membangun solusi digital yang berdampak. Saya spesialis dalam pengembangan platform web yang skalabel dan aplikasi mobile menggunakan tech stack modern, terutama Next.js, TypeScript, dan Native Android (Kotlin).",
-      "paragraph_2": "Fokus saya adalah merancang arsitektur perangkat lunak yang terstruktur dengan baik, mudah dipelihara, dan selaras dengan tujuan bisnis. Saya memadukan keahlian teknis dengan komunikasi proaktif dan kepemimpinan untuk memastikan setiap proyek memberikan kejelasan logis dan dampak nyata di dunia nyata."
+      "paragraph_1": "Software Engineer & Full Stack Developer dengan 5+ tahun pengalaman membangun solusi digital yang skalabel. Spesialis Laravel, Next.js, MERN stack, Go, dan Java—fokus pada platform web, integrasi sistem, dan UI/UX praktis.",
+      "paragraph_2": "Dari sistem perpustakaan institusi hingga repository akademik, saya membangun perangkat lunak yang mudah dipelihara dan mendukung operasional nyata. Saya memadukan craft engineering dengan dokumentasi, pelatihan, dan dukungan infrastruktur."
     },
     "skills": {
       "title": "Keahlian",
@@ -22,9 +22,9 @@
     "title": "Tentang",
     "description": "Pengenalan singkat mengenai siapa saya.",
     "resume": {
-      "paragraph_1": "Saya Satria Bahari, seorang Software Engineer yang berbasis di Jambi, berdedikasi untuk membangun solusi digital yang berdampak. Saya spesialis dalam pengembangan platform web dan aplikasi mobile menggunakan tech stack modern, termasuk Next.js, TypeScript, dan pengembangan Android native dengan Kotlin.",
-      "paragraph_2": "Fokus utama saya adalah merancang arsitektur perangkat lunak yang tidak hanya berfungsi tetapi juga terstruktur dengan baik, mudah dipelihara, dan skalabel untuk memenuhi kebutuhan bisnis. Saya percaya bahwa kode berkualitas tinggi harus berjalan beriringan dengan efisiensi sistem dan kejelasan logis.",
-      "paragraph_3": "Saya memadukan keahlian teknis dengan komunikasi proaktif, berpikir kritis, dan manajemen waktu yang efektif. Saya berkembang dalam lingkungan kolaboratif dan memanfaatkan keterampilan kepemimpinan untuk memastikan setiap proyek memberikan hasil optimal dan dampak nyata.",
+      "paragraph_1": "Saya Muhamad Taufiq Riza, Software Engineer yang passionate terhadap teknologi modern dengan 5+ tahun pengalaman membangun solusi digital yang skalabel dan user-friendly. Spesialis full stack dengan Laravel, Next.js, MERN stack, Go, dan Java.",
+      "paragraph_2": "Pekerjaan saya berfokus pada integrasi sistem, platform institusi, dan arsitektur perangkat lunak yang maintainable—dari sistem perpustakaan hingga repository akademik.",
+      "paragraph_3": "Saya memadukan engineering hands-on dengan dokumentasi teknis, pelatihan, dan dukungan infrastruktur. Berbasis di Indonesia, saya senang mengirimkan sistem andal yang benar-benar dipakai.",
       "paragraph_4": "Salam hangat,"
     },
     "career": {
@@ -207,7 +207,7 @@
   "Footer": {
     "hire": "Rekrut saya.",
     "copyright_1": "HAK CIPTA © ",
-    "copyright_2": "Satria Bahari. Seluruh hak cipta dilindungi undang-undang."
+    "copyright_2": "Muhamad Taufiq Riza. Seluruh hak cipta dilindungi undang-undang."
   },
   "LocaleSwitcher": {
     "en": "🇺🇸",

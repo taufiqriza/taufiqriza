@@ -60,7 +60,7 @@ export function Btn({
         variant === "default" &&
           "border border-white/[0.08] bg-white/[0.04] text-neutral-200 hover:bg-white/[0.08]",
         variant === "primary" &&
-          "bg-primary text-black hover:bg-primary-400 shadow-[0_0_24px_-6px_rgba(251,228,0,0.5)]",
+          "bg-primary text-white hover:bg-primary-400 shadow-[0_0_24px_-6px_rgba(6,92,194,0.5)]",
         variant === "danger" &&
           "border border-red-500/30 bg-red-500/10 text-red-300 hover:bg-red-500/20",
         variant === "ghost" && "text-neutral-400 hover:bg-white/[0.04] hover:text-white",

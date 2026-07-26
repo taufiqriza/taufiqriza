@@ -71,7 +71,7 @@ const RootLayout = async ({
       </head>
       <body className={inter.className}>
         <NextTopLoader
-          color="#fbe400"
+          color="#065cc2"
           initialPosition={0.08}
           crawlSpeed={200}
           height={3}
@@ -79,7 +79,7 @@ const RootLayout = async ({
           showSpinner={false}
           easing="ease"
           speed={200}
-          shadow="0 0 10px #fbe400,0 0 5px #ffffb8"
+          shadow="0 0 10px #065cc2,0 0 5px #6aacee"
         />
         <NextIntlClientProvider messages={messages} locale={locale}>
           <NextAuthProvider session={session}>

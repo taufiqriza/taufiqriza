@@ -1,16 +1,18 @@
 export const METADATA = {
-  creator: "Satria Bahari",
-  description: "Personal website, portfolio, blog",
-  keyword: "satria, satria bahari",
+  creator: "Muhamad Taufiq Riza",
+  description:
+    "Software Engineer & Full Stack Developer specializing in Laravel, Next.js, MERN, Go, and system integration.",
+  keyword:
+    "muhamad taufiq riza, taufiqriza, software engineer, full stack developer, laravel, next.js, go, java",
   authors: {
-    name: "Satria Bahari",
+    name: "Muhamad Taufiq Riza",
     url: process.env.DOMAIN,
   },
   openGraph: {
     url: process.env.DOMAIN,
-    siteName: "Satria Bahari",
+    siteName: "Muhamad Taufiq Riza",
     locale: "id-ID",
   },
-  exTitle: "| Satria Bahari",
-  profile: "/images/satria.jpg",
+  exTitle: "| Muhamad Taufiq Riza",
+  profile: "/images/taufiq.jpg",
 };

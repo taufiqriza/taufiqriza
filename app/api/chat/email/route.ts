@@ -12,9 +12,9 @@ export const POST = async (request: Request) => {
       },
     });
 
-    // Warna Utama & Tekstur
-    const primaryColor = "#fbe400";
+    const primaryColor = "#065cc2";
     const darkColor = "#1e293b";
+    const siteUrl = process.env.DOMAIN || "https://taufiqriza.vercel.app";
 
     const mainContainer = `font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; color: ${darkColor};`;
     const headerStyle = `background-color: ${primaryColor}; padding: 30px 24px; text-align: center;`;
@@ -22,8 +22,8 @@ export const POST = async (request: Request) => {
     const footerStyle =
       "padding: 20px; text-align: center; background-color: #f8fafc; color: #64748b; font-size: 12px; border-top: 1px solid #e2e8f0;";
 
-    const buttonStyle = `display: inline-block; padding: 12px 24px; background-color: ${primaryColor}; color: ${darkColor}; text-decoration: none; border-radius: 8px; font-weight: 700; margin-top: 20px;`;
-    const quoteStyle = `margin: 20px 0; padding: 16px; border-left: 4px solid ${primaryColor}; background-color: #fffdec; color: #454c00; font-style: italic; line-height: 1.6;`;
+    const buttonStyle = `display: inline-block; padding: 12px 24px; background-color: ${primaryColor}; color: #ffffff; text-decoration: none; border-radius: 8px; font-weight: 700; margin-top: 20px;`;
+    const quoteStyle = `margin: 20px 0; padding: 16px; border-left: 4px solid ${primaryColor}; background-color: #e8f3fd; color: #032d63; font-style: italic; line-height: 1.6;`;
 
     if (body.type === "REPLY_NOTIFICATION") {
       const { targetEmail, senderName, message } = body;
@@ -31,7 +31,7 @@ export const POST = async (request: Request) => {
       const htmlReply = `
         <div style="${mainContainer}">
           <div style="${headerStyle}">
-            <h1 style="color: ${darkColor}; margin: 0; font-size: 20px; font-weight: bold;">Pesan Kamu Dibalas!</h1>
+            <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: bold;">Pesan Kamu Dibalas!</h1>
           </div>
           <div style="${bodyStyle}">
             <p style="font-size: 16px; margin-top: 0;">Halo,</p>
@@ -42,16 +42,16 @@ export const POST = async (request: Request) => {
               "${message}"
             </div>
             <p style="font-size: 14px; color: #64748b; margin-top: 24px;">Klik tombol di bawah ini untuk melihat percakapan lengkap.</p>
-            <a href="https://satriabahari.my.id/chat" style="${buttonStyle}">Buka Chat Room</a>
+            <a href="${siteUrl}/chat" style="${buttonStyle}">Buka Chat Room</a>
           </div>
           <div style="${footerStyle}">
-            Sent by Satria Bahari Portfolio System • www.satriabahari.my.id • Jambi, Indonesia
+            Sent by Muhamad Taufiq Riza Portfolio • Indonesia
           </div>
         </div>
       `;
 
       await transporter.sendMail({
-        from: `"Satria Bahari" <${process.env.NODEMAILER_EMAIL}>`,
+        from: `"Muhamad Taufiq Riza" <${process.env.NODEMAILER_EMAIL}>`,
         to: targetEmail,
         subject: `Re: Pesan kamu dibalas oleh ${senderName}`,
         html: htmlReply,
@@ -62,10 +62,10 @@ export const POST = async (request: Request) => {
       const htmlNewChat = `
         <div style="${mainContainer}">
           <div style="${headerStyle}">
-            <h1 style="color: ${darkColor}; margin: 0; font-size: 20px; font-weight: bold;">💬 Chat Room Alert</h1>
+            <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: bold;">Chat Room Alert</h1>
           </div>
           <div style="${bodyStyle}">
-            <p style="font-size: 16px; margin-top: 0;">Hi Satria,</p>
+            <p style="font-size: 16px; margin-top: 0;">Hi Taufiq,</p>
             <p style="font-size: 15px;">Kamu mendapatkan pesan baru dari seseorang di Chat Room kamu.</p>
             
             <div style="background-color: #f8fafc; border-radius: 8px; padding: 16px; margin: 20px 0; border: 1px solid #e2e8f0;">
@@ -77,7 +77,7 @@ export const POST = async (request: Request) => {
               "${message}"
             </div>
             
-            <a href="https://satriabahari.my.id/chat" style="${buttonStyle}">Balas Sekarang</a>
+            <a href="${siteUrl}/chat" style="${buttonStyle}">Balas Sekarang</a>
           </div>
           <div style="${footerStyle}">
             Automated Notification System • Portfolio App
@@ -87,8 +87,8 @@ export const POST = async (request: Request) => {
 
       await transporter.sendMail({
         from: `"Chat System" <${process.env.NODEMAILER_EMAIL}>`,
-        to: "satriaaxel7703@gmail.com",
-        subject: `New Message from ${name} 💬`,
+        to: process.env.NEXT_PUBLIC_AUTHOR_EMAIL || process.env.NODEMAILER_EMAIL,
+        subject: `New Message from ${name}`,
         html: htmlNewChat,
       });
     }

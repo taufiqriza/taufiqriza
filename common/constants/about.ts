@@ -1,9 +1,6 @@
 export const ABOUT = [
-    "I'm Satria Bahari, a Jambi based Software Engineer dedicated to building impactful digital solutions. I specialize in developing web platforms and mobile applications using a modern tech stack, including Next.js, TypeScript, and native Android development with Kotlin.",
-
-    "My primary focus is crafting software architecture that doesn't just work but is well structured, maintainable, and scalable to meet business needs. I believe that high-quality code must go hand-in-hand with system efficiency and logical clarity.",
-    
-    "I blend technical expertise with proactive communication, critical thinking, and effective time management. I thrive in collaborative environments and leverage leadership skills to ensure every project delivers optimal results and a real-world impact.",
-
-    "Best Regards,"
-]
+  "I'm Muhamad Taufiq Riza, a Software Engineer passionate about modern technology with 5+ years of experience building scalable, user-friendly digital solutions. I specialize in full stack development with Laravel, Next.js, MERN stack, Go, and Java.",
+  "My work focuses on system integration, institutional platforms, and clean software architecture that is maintainable and aligned with real operational needs—from library systems to academic repositories.",
+  "I combine hands-on engineering with technical documentation, training, and infrastructure support. Based in Indonesia, I thrive on shipping reliable systems that people actually use.",
+  "Best regards,",
+];

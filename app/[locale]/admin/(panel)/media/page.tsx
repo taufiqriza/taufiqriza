@@ -68,7 +68,7 @@ export default function AdminMediaPage() {
         description="Browse and upload assets to Supabase Storage."
         actions={
           <label className="cursor-pointer">
-            <span className="inline-flex items-center justify-center rounded-xl bg-primary px-3.5 py-2 text-sm font-medium text-black">
+            <span className="inline-flex items-center justify-center rounded-xl bg-primary px-3.5 py-2 text-sm font-medium text-white">
               {uploading ? "Uploading…" : "Upload"}
             </span>
             <input

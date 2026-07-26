@@ -22,10 +22,10 @@ const ProfileHeader = ({ expandMenu, imageSize }: ProfileHeaderProps) => {
       )}
     >
       <Image
-        src={"/images/satria.jpg"}
+        src={"/images/taufiq.jpg"}
         width={expandMenu ? 80 : imageSize * 1}
         height={expandMenu ? 80 : imageSize * 1}
-        alt="Satria Bahari"
+        alt="Muhamad Taufiq Riza"
         className="border-2 border-neutral-400 dark:border-neutral-600 lg:hover:scale-105"
         rounded="rounded-full"
       />
@@ -33,7 +33,7 @@ const ProfileHeader = ({ expandMenu, imageSize }: ProfileHeaderProps) => {
       <div className="mt-1 flex items-center gap-2 lg:mt-4">
         <Link href="/" passHref>
           <h2 className="flex-grow text-lg font-medium lg:text-xl">
-            Satria Bahari
+            Muhamad Taufiq Riza
           </h2>
         </Link>
 
@@ -43,7 +43,7 @@ const ProfileHeader = ({ expandMenu, imageSize }: ProfileHeaderProps) => {
       </div>
 
       <div className="hidden text-sm text-neutral-600 transition-all duration-300 hover:text-neutral-700 dark:text-neutral-500 dark:hover:text-neutral-400 lg:flex">
-        @satriabahari
+        @taufiqriza
       </div>
 
       <div className="hidden justify-between gap-6 lg:mt-4 lg:flex">

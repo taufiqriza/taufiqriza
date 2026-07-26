@@ -38,8 +38,8 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           )}
         >
           <div className="flex h-16 items-center gap-3 border-b border-white/[0.06] px-5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-black text-black">
-              A
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-black text-white">
+              T
             </div>
             <div>
               <p className="text-sm font-semibold tracking-tight">Admin</p>
@@ -66,7 +66,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
                           className={cn(
                             "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all",
                             active
-                              ? "bg-white/[0.08] text-primary shadow-[inset_0_0_0_1px_rgba(251,228,0,0.15)]"
+                              ? "bg-white/[0.08] text-primary shadow-[inset_0_0_0_1px_rgba(6,92,194,0.25)]"
                               : "text-neutral-400 hover:bg-white/[0.04] hover:text-neutral-100",
                           )}
                         >

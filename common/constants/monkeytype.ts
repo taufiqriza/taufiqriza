@@ -1,7 +1,7 @@
 export const MONKEYTYPE_ACCOUNT = {
-  username: "SatriaAxel",
+  username: "taufiqriza",
   api_key: process.env.MONKEYTYPE_API_KEY,
   endpoint: "/api/monkeytype",
-  monkeytype_url: "https://monkeytype.com/profile/SatriaAxel",
-  is_active: true,
+  monkeytype_url: "https://monkeytype.com/profile/taufiqriza",
+  is_active: false,
 };

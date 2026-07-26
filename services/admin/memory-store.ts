@@ -75,7 +75,7 @@ function seed(): Store {
         username: "username",
         email: "you@example.com",
         location: "Indonesia",
-        photo: "/images/satria.jpg",
+        photo: "/images/taufiq.jpg",
       },
       about: {
         en: ["Bio paragraph one.", "Bio paragraph two."],
