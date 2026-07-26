@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { BiCodeAlt as SkillsIcon } from "react-icons/bi";
 import { useTranslations } from "next-intl";
 
@@ -27,7 +30,13 @@ const SkillList = () => {
         </SectionSubHeading>
       </div>
 
-      <div className="corp-card p-5">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="corp-card p-5"
+      >
         <div className="grid w-full grid-cols-5 gap-x-3 gap-y-8 py-2 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-10">
           {stacksInArray.map(([name, { icon, background }], index) => (
             <GlassIcon
@@ -38,7 +47,7 @@ const SkillList = () => {
             />
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

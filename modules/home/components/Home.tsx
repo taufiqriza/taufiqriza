@@ -6,11 +6,11 @@ import SkillList from "./SkillList";
 
 const Home = () => {
   return (
-    <div className="page-enter space-y-2">
+    <div className="page-enter space-y-1">
       <Introduction />
-      <Breakline className="my-8 border-primary/10" />
+      <Breakline className="my-7 border-primary/10" />
       <FeaturedProjects />
-      <Breakline className="my-8 border-primary/10" />
+      <Breakline className="my-7 border-primary/10" />
       <SkillList />
     </div>
   );

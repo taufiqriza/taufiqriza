@@ -93,7 +93,7 @@ export default function FeaturedProjects() {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="corp-card h-48 animate-pulse bg-primary/5 md:first:col-span-2 md:first:h-64"
+              className="corp-card h-48 animate-pulse bg-primary/5 md:first:col-span-2 md:first:h-56"
             />
           ))}
         </div>
@@ -101,9 +101,10 @@ export default function FeaturedProjects() {
         <div className="grid gap-4 md:grid-cols-2">
           {hero && (
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="md:col-span-2"
             >
               <Link href={`/projects/${hero.slug}`} className="group block">
@@ -169,9 +170,14 @@ export default function FeaturedProjects() {
           {rest.map((project, index) => (
             <motion.div
               key={project.id || project.slug}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.08 * (index + 1) }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{
+                duration: 0.35,
+                delay: 0.06 * (index + 1),
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
               <Link href={`/projects/${project.slug}`} className="group block h-full">
                 <article className="corp-card corp-shine flex h-full flex-col">

@@ -50,9 +50,14 @@ const Projects = () => {
       {filteredProjects?.map((project, index) => (
         <motion.div
           key={index}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: index * 0.1 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-20px" }}
+          transition={{
+            duration: 0.35,
+            delay: Math.min(index * 0.06, 0.3),
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           <ProjectCard {...project} />
         </motion.div>
