@@ -12,6 +12,11 @@ const nextConfig = {
       },
     ],
   },
+  transpilePackages: ["three", "meshline"],
+  webpack: (config) => {
+    config.externals = [...(config.externals || []), { canvas: "canvas" }];
+    return config;
+  },
 };
 
 export default withNextIntl(nextConfig);

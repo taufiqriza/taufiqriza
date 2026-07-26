@@ -9,6 +9,7 @@ create table if not exists public.projects (
   slug text not null unique,
   description text not null default '',
   content text,
+  image text,
   link_demo text,
   link_github text,
   stacks text[] not null default '{}',
@@ -18,6 +19,8 @@ create table if not exists public.projects (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.projects add column if not exists image text;
 
 -- Achievements
 create table if not exists public.achievements (

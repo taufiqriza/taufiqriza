@@ -11,6 +11,13 @@ import { adminApi } from "@/modules/admin/lib/api";
 const fields: FormField[] = [
   { name: "title", label: "Title", type: "text", required: true },
   { name: "slug", label: "Slug", type: "text" },
+  {
+    name: "image",
+    label: "Cover image",
+    type: "image",
+    bucket: "projects",
+    hint: "Drop project cover · PNG/JPG/WEBP max 5MB",
+  },
   { name: "description", label: "Description", type: "textarea", rows: 3, required: true },
   { name: "content", label: "Content (Markdown)", type: "textarea", rows: 12 },
   { name: "stacks", label: "Stacks", type: "text", hint: "Comma-separated" },
@@ -51,6 +58,7 @@ export default function EditProjectPage() {
         initial={{
           ...data,
           stacks: (data.stacks || []).join(", "),
+          image: data.image || "",
         }}
       />
     </div>

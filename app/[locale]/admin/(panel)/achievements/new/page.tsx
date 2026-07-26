@@ -5,6 +5,7 @@ import { PageHeader } from "@/modules/admin/components/ui";
 
 const fields: FormField[] = [
   { name: "name", label: "Name", type: "text", required: true },
+  { name: "image", label: "Certificate image", type: "image", bucket: "achievements", hint: "Upload certificate/badge image" },
   { name: "slug", label: "Slug", type: "text" },
   { name: "issuing_organization", label: "Organization", type: "text", required: true },
   { name: "credential_id", label: "Credential ID", type: "text" },

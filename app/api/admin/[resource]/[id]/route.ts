@@ -43,7 +43,6 @@ const REVALIDATE: Record<string, string[]> = {
 function normalizePayload(resource: string, body: Record<string, unknown>) {
   const payload = { ...body };
   delete payload.id;
-  delete payload.image;
   delete payload.created_at;
   delete payload.updated_at;
 

@@ -6,6 +6,14 @@ import { PageHeader } from "@/modules/admin/components/ui";
 const fields: FormField[] = [
   { name: "title", label: "Title", type: "text", required: true },
   { name: "slug", label: "Slug", type: "text", hint: "Auto from title if empty" },
+  {
+    name: "image",
+    label: "Cover image",
+    type: "image",
+    bucket: "projects",
+    pathPrefix: "",
+    hint: "Drop project cover · PNG/JPG/WEBP max 5MB",
+  },
   { name: "description", label: "Description", type: "textarea", rows: 3, required: true },
   { name: "content", label: "Content (Markdown)", type: "textarea", rows: 12 },
   { name: "stacks", label: "Stacks", type: "text", hint: "Comma-separated", placeholder: "Next.js, TypeScript" },

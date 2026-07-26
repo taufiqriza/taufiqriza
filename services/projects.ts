@@ -9,6 +9,13 @@ export const getProjectsData = async () => {
   if (!data) return [];
 
   return data.map((item) => {
+    if (item.image && String(item.image).startsWith("http")) {
+      return item;
+    }
+    if (item.image && String(item.image).startsWith("/")) {
+      return item;
+    }
+
     const { data: imageData } = supabase.storage
       .from("projects")
       .getPublicUrl(`${item.slug}.webp`);
@@ -31,6 +38,10 @@ export const getProjectsDataBySlug = async (slug: string) => {
 
   if (error) throw new Error(error.message);
   if (!data) return null;
+
+  if (data.image && (String(data.image).startsWith("http") || String(data.image).startsWith("/"))) {
+    return data;
+  }
 
   const { data: imageData } = supabase.storage
     .from("projects")

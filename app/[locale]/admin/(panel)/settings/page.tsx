@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 
 import { adminApi } from "@/modules/admin/lib/api";
+import FileUpload from "@/modules/admin/components/FileUpload";
 import {
   Btn,
   ErrorBox,
@@ -149,13 +150,16 @@ export default function AdminSettingsPage() {
               onChange={(e) => setProfile({ ...profile, location: e.target.value })}
             />
           </Field>
-          <Field label="Photo path" className="sm:col-span-2">
-            <Input
+          <div className="sm:col-span-2">
+            <FileUpload
+              label="Profile photo"
+              bucket="profile"
+              pathPrefix="avatar"
               value={profile.photo}
-              onChange={(e) => setProfile({ ...profile, photo: e.target.value })}
-              placeholder="/images/you.jpg"
+              onChange={(url) => setProfile({ ...profile, photo: url })}
+              hint="Upload profile photo · PNG/JPG/WEBP max 5MB"
             />
-          </Field>
+          </div>
         </Panel>
 
         <Panel className="grid gap-4 p-5">

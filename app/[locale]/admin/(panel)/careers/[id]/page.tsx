@@ -11,7 +11,7 @@ import { adminApi } from "@/modules/admin/lib/api";
 const fields: FormField[] = [
   { name: "position", label: "Position", type: "text", required: true },
   { name: "company", label: "Company", type: "text", required: true },
-  { name: "logo", label: "Logo path/URL", type: "text" },
+  { name: "logo", label: "Logo", type: "image", bucket: "careers", hint: "Upload logo image" },
   { name: "location", label: "Location", type: "text" },
   {
     name: "location_type",

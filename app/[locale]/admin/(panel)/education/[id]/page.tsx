@@ -12,7 +12,7 @@ const fields: FormField[] = [
   { name: "school", label: "School", type: "text", required: true },
   { name: "major", label: "Major", type: "text", required: true },
   { name: "degree", label: "Degree", type: "text", required: true },
-  { name: "logo", label: "Logo path/URL", type: "text" },
+  { name: "logo", label: "Logo", type: "image", bucket: "education", hint: "Upload logo image" },
   { name: "location", label: "Location", type: "text" },
   { name: "gpa", label: "GPA", type: "text" },
   { name: "start_year", label: "Start year", type: "number", required: true },

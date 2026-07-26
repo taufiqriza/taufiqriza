@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 
 import { useRouter } from "@/i18n/navigation";
 import { adminApi } from "../lib/api";
+import FileUpload from "./FileUpload";
 import { Btn, ErrorBox, Field, Input, Panel, Textarea, Toggle } from "./ui";
 
 export type FormField =
@@ -43,6 +44,14 @@ export type FormField =
       type: "lines";
       hint?: string;
       placeholder?: string;
+    }
+  | {
+      name: string;
+      label: string;
+      type: "image";
+      bucket: string;
+      pathPrefix?: string;
+      hint?: string;
     };
 
 function toFormValue(value: unknown, type: FormField["type"]): string | boolean {
@@ -104,11 +113,6 @@ export default function ResourceForm({
         }
       });
 
-      // stacks special: comma-separated stored as array later by API
-      if (typeof payload.stacks === "string") {
-        // keep as string for API normalize
-      }
-
       if (transform) payload = transform(payload);
 
       if (id !== undefined) {
@@ -130,9 +134,28 @@ export default function ResourceForm({
       {error && <ErrorBox message={error} />}
       <Panel className="grid gap-5 p-5 sm:grid-cols-2">
         {fields.map((field) => {
+          if (field.type === "image") {
+            return (
+              <FileUpload
+                key={field.name}
+                label={field.label}
+                bucket={field.bucket}
+                pathPrefix={field.pathPrefix}
+                hint={field.hint}
+                value={String(values[field.name] || "")}
+                onChange={(url) => set(field.name, url)}
+              />
+            );
+          }
+
           if (field.type === "toggle") {
             return (
-              <Field key={field.name} label={field.label} hint={field.hint} className="sm:col-span-2">
+              <Field
+                key={field.name}
+                label={field.label}
+                hint={field.hint}
+                className="sm:col-span-2"
+              >
                 <Toggle
                   checked={Boolean(values[field.name])}
                   onChange={(v) => set(field.name, v)}

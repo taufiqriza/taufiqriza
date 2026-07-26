@@ -48,9 +48,9 @@ function parseBody(raw: unknown): Record<string, unknown> {
 function normalizePayload(resource: string, body: Record<string, unknown>) {
   const payload = { ...body };
   delete payload.id;
-  delete payload.image;
   delete payload.created_at;
   delete payload.updated_at;
+  // keep image / logo URLs from FileUpload
 
   if (resource === "projects") {
     if (!payload.slug && typeof payload.title === "string") {
