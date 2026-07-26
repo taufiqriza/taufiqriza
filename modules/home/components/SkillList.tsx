@@ -22,22 +22,22 @@ const SkillList = () => {
     ]);
 
   return (
-    <section className="space-y-6">
-      <div className="space-y-2">
+    <section className="space-y-4">
+      <div className="space-y-1.5">
         <SectionHeading title={t("skills.title")} icon={<SkillsIcon />} />
         <SectionSubHeading>
-          <p>{t("skills.sub_title")}</p>
+          <p className="text-sm">{t("skills.sub_title")}</p>
         </SectionSubHeading>
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="corp-card p-5"
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="rounded-2xl border border-primary/10 bg-white/50 p-4 dark:bg-neutral-950/40 sm:p-5"
       >
-        <div className="grid w-full grid-cols-5 gap-x-3 gap-y-8 py-2 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-10">
+        <div className="grid w-full grid-cols-5 gap-x-2 gap-y-7 sm:grid-cols-7 md:grid-cols-9 lg:grid-cols-10">
           {stacksInArray.map(([name, { icon, background }], index) => (
             <GlassIcon
               key={index}

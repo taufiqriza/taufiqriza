@@ -222,9 +222,11 @@ function Band({
 export default function Lanyard3D({
   className = "",
   frontImage,
+  fill = false,
 }: {
   className?: string;
   frontImage?: string;
+  fill?: boolean;
 }) {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -237,13 +239,21 @@ export default function Lanyard3D({
 
   return (
     <div
-      className={`relative h-[380px] w-full max-w-[360px] touch-none sm:h-[440px] ${className}`}
+      className={
+        fill
+          ? `relative h-full min-h-[360px] w-full touch-none ${className}`
+          : `relative h-[380px] w-full max-w-[360px] touch-none sm:h-[440px] ${className}`
+      }
       aria-label="3D interactive lanyard badge"
     >
       <Canvas
-        camera={{ position: [0, 0, isMobile ? 16 : 14], fov: 22 }}
+        camera={{
+          position: [0, 0.2, isMobile ? 15 : fill ? 13 : 14],
+          fov: fill ? 24 : 22,
+        }}
         dpr={[1, isMobile ? 1.25 : 1.75]}
         gl={{ alpha: true, antialias: !isMobile }}
+        style={{ width: "100%", height: "100%" }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), 0)}
       >
         <ambientLight intensity={Math.PI} />
@@ -281,9 +291,6 @@ export default function Lanyard3D({
           />
         </Environment>
       </Canvas>
-      <p className="pointer-events-none absolute bottom-0 left-0 right-0 text-center text-[10px] text-neutral-400">
-        Drag the badge · 3D physics
-      </p>
     </div>
   );
 }
