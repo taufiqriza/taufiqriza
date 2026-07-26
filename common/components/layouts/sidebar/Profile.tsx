@@ -1,80 +1,40 @@
+"use client";
+
 import clsx from "clsx";
-import { AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-import { useMenu } from "@/common/stores/menu";
-
-import MobileMenu from "./MobileMenu";
-import MobileMenuButton from "./MobileMenuButton";
 import ProfileHeader from "./ProfileHeader";
 import ThemeToggle from "./ThemeToggle";
 import IntlToggle from "./IntlToggle";
 
 const Profile = () => {
-  const [width, setWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  const { isOpen, toggleMenu } = useMenu();
-
-  const imageSize = isMobile ? 40 : 100;
-
   useEffect(() => {
-    setWidth(window.innerWidth);
-    setIsMobile(window.innerWidth < 769);
-
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-      setIsMobile(window.innerWidth < 769);
-    };
-
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize();
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
+  const imageSize = isMobile ? 40 : 100;
 
   return (
     <div
       className={clsx(
-        "fixed z-20 w-full bg-neutral-50 p-5 shadow-sm dark:border-b dark:border-neutral-800 dark:bg-neutral-900 lg:relative lg:border-none lg:!bg-transparent lg:p-0 xl:shadow-none",
-        isOpen && "pb-0",
+        "fixed inset-x-0 top-0 z-30 border-b border-primary/10 bg-white/85 px-4 py-3 shadow-[0_4px_24px_-12px_rgba(6,92,194,0.2)] backdrop-blur-xl dark:border-primary/15 dark:bg-neutral-950/85 lg:relative lg:border-none lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none",
       )}
     >
-      <div className="flex items-center justify-between md:px-2 lg:flex-col lg:space-y-4">
-        <ProfileHeader expandMenu={isOpen} imageSize={imageSize} />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent lg:hidden" />
+      <div className="flex items-center justify-between lg:flex-col lg:space-y-4">
+        <ProfileHeader expandMenu={false} imageSize={imageSize} />
         {isMobile && (
-          <div
-            className={clsx(
-              "mt-1 flex items-center gap-5 lg:hidden",
-              isOpen &&
-                "h-[130px] flex-col-reverse !items-end justify-between pb-1",
-            )}
-          >
-            <div className="flex gap-4">
-              <IntlToggle />
-              <ThemeToggle />
-            </div>
-            <MobileMenuButton expandMenu={isOpen} setExpandMenu={toggleMenu} />
+          <div className="flex items-center gap-3">
+            <IntlToggle />
+            <ThemeToggle />
           </div>
         )}
       </div>
-
-      {isMobile && (
-        <AnimatePresence>{isOpen && <MobileMenu />}</AnimatePresence>
-      )}
     </div>
   );
 };

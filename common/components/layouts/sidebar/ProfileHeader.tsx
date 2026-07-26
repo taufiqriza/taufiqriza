@@ -26,14 +26,15 @@ const ProfileHeader = ({ expandMenu, imageSize }: ProfileHeaderProps) => {
         width={expandMenu ? 80 : imageSize * 1}
         height={expandMenu ? 80 : imageSize * 1}
         alt="Muhamad Taufiq Riza"
-        className="border-2 border-neutral-400 dark:border-neutral-600 lg:hover:scale-105"
+        className="border-2 border-primary/25 ring-2 ring-primary/10 dark:border-primary/30 lg:hover:scale-105"
         rounded="rounded-full"
       />
 
       <div className="mt-1 flex items-center gap-2 lg:mt-4">
         <Link href="/" passHref>
-          <h2 className="flex-grow text-lg font-medium lg:text-xl">
-            Muhamad Taufiq Riza
+          <h2 className="flex-grow text-base font-semibold tracking-tight lg:text-xl">
+            <span className="lg:hidden">Taufiq Riza</span>
+            <span className="hidden lg:inline">Muhamad Taufiq Riza</span>
           </h2>
         </Link>
 

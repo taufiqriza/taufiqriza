@@ -1,18 +1,18 @@
 import Breakline from "@/common/components/elements/Breakline";
 
+import FeaturedProjects from "./FeaturedProjects";
 import Introduction from "./Introduction";
 import SkillList from "./SkillList";
-// import BentoGrid from "./Bento/BentoGrid";
 
 const Home = () => {
   return (
-    <>
+    <div className="page-enter space-y-2">
       <Introduction />
-      <Breakline className="my-8" />
+      <Breakline className="my-8 border-primary/10" />
+      <FeaturedProjects />
+      <Breakline className="my-8 border-primary/10" />
       <SkillList />
-      {/* <Breakline className="my-8" /> */}
-      {/* <BentoGrid /> */}
-    </>
+    </div>
   );
 };
 

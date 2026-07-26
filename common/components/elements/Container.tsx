@@ -1,3 +1,5 @@
+import cn from "@/common/libs/clsxm";
+
 interface ContainerProps {
   children: React.ReactNode;
   className?: string;
@@ -6,7 +8,13 @@ interface ContainerProps {
 
 const Container = ({ children, className = "", ...others }: ContainerProps) => {
   return (
-    <div className={`mt-20 p-8 lg:mt-0 ${className} `} {...others}>
+    <div
+      className={cn(
+        "mt-[4.5rem] px-4 py-6 sm:px-6 sm:py-8 lg:mt-0 lg:p-8",
+        className,
+      )}
+      {...others}
+    >
       {children}
     </div>
   );

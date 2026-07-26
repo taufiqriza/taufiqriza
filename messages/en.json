@@ -9,7 +9,12 @@
     },
     "skills": {
       "title": "Skills",
-      "sub_title": "My professional skills."
+      "sub_title": "Core stack I ship with day to day."
+    },
+    "projects": {
+      "title": "Selected work",
+      "sub_title": "Institutional platforms and production systems.",
+      "view_all": "All projects"
     },
     "bento": {
       "title": "Featured Sections",

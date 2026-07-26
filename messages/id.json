@@ -9,7 +9,12 @@
     },
     "skills": {
       "title": "Keahlian",
-      "sub_title": "Keahlian profesional saya."
+      "sub_title": "Stack utama yang saya pakai setiap hari."
+    },
+    "projects": {
+      "title": "Karya pilihan",
+      "sub_title": "Platform institusi dan sistem production.",
+      "view_all": "Semua proyek"
     },
     "bento": {
       "title": "Bagian Unggulan",

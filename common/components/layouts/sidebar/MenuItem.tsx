@@ -33,7 +33,7 @@ const MenuItem = ({
 
   const activeClasses = `${
     isExclusive
-      ? "my-1 flex items-center gap-2 rounded-full border border-primary bg-primary/10 px-4 py-2 text-primary hover:bg-primary/20 dark:border-primary-300 dark:bg-primary-300/10 dark:text-primary-300 dark:hover:bg-primary-400/20 lg:transition-all lg:duration-300 lg:hover:scale-105"
+      ? "my-1 flex items-center gap-2 rounded-full border border-primary/30 bg-gradient-to-r from-primary/15 to-primary/5 px-4 py-2 text-primary shadow-[inset_0_0_0_1px_rgba(6,92,194,0.08)] hover:from-primary/20 dark:border-primary/40 dark:text-primary-300 lg:transition-all lg:duration-300"
       : `
         flex items-center gap-2 py-2 px-4 
         text-neutral-700 dark:text-neutral-400 
