@@ -8,9 +8,12 @@ import { BiMap } from "react-icons/bi";
 import { Link } from "@/i18n/navigation";
 
 import LanyardBadge from "./LanyardBadge";
+import useSiteConfig from "@/hooks/useSiteConfig";
 
 const Introduction = () => {
   const t = useTranslations("HomePage");
+  const { data } = useSiteConfig();
+  const profile = data?.profile;
 
   return (
     <section className="relative overflow-hidden rounded-3xl border border-primary/10 bg-white/40 dark:bg-neutral-950/40">
@@ -28,11 +31,11 @@ const Introduction = () => {
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/90 px-2.5 py-1 text-[11px] font-medium text-primary dark:bg-neutral-900/80 dark:text-primary-300">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Available
+              {t("hero.available")}
             </span>
             <span className="inline-flex items-center gap-1 text-[11px] text-neutral-500">
               <BiMap size={13} className="text-primary" />
-              {t("location")}
+              {profile?.location || t("location")}
             </span>
           </motion.div>
 
@@ -43,10 +46,10 @@ const Introduction = () => {
             className="space-y-3"
           >
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/70">
-              Software Engineer
+              {t("hero.role")}
             </p>
             <h1 className="text-[1.65rem] font-semibold leading-[1.2] tracking-tight text-neutral-900 dark:text-white sm:text-3xl lg:text-[2.1rem]">
-              {t("intro")}
+              {profile?.name ? `Hi, I'm ${profile.name}` : t("intro")}
             </h1>
             <p className="max-w-md text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-[15px]">
               {t("resume.paragraph_1")}
@@ -76,11 +79,11 @@ const Introduction = () => {
             className="flex flex-wrap gap-2.5 pt-1"
           >
             <Link href="/projects" className="btn-brand">
-              Projects
+              {t("hero.projects")}
               <HiOutlineArrowSmRight size={16} />
             </Link>
             <Link href="/contact" className="btn-brand-outline">
-              Contact
+              {t("hero.contact")}
             </Link>
           </motion.div>
         </div>

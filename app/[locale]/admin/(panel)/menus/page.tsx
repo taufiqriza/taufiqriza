@@ -19,6 +19,7 @@ export default function AdminMenusPage() {
   const [rows, setRows] = useState<MenuRow[]>([]);
   const [title, setTitle] = useState("");
   const [href, setHref] = useState("");
+  const [iconKey, setIconKey] = useState("home");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -42,6 +43,7 @@ export default function AdminMenusPage() {
     await adminApi.create("menus", {
       title: title.trim(),
       href: href.trim(),
+      icon_key: iconKey,
       is_show: true,
       sort_order: rows.length,
     });
@@ -72,12 +74,39 @@ export default function AdminMenusPage() {
         </div>
       )}
 
-      <Panel className="mb-6 grid gap-3 p-4 sm:grid-cols-[1fr_1fr_auto]">
+      <Panel className="mb-6 grid gap-3 p-4 sm:grid-cols-[1fr_1fr_1fr_auto]">
         <Field label="Title">
           <Input value={title} onChange={(e) => setTitle(e.target.value)} />
         </Field>
         <Field label="Href">
-          <Input value={href} onChange={(e) => setHref(e.target.value)} placeholder="/about" />
+          <Input
+            value={href}
+            onChange={(e) => setHref(e.target.value)}
+            placeholder="/about"
+          />
+        </Field>
+        <Field label="Icon">
+          <select
+            className="w-full rounded-xl border border-white/[0.08] bg-black/40 px-3 py-2.5 text-sm text-neutral-100 outline-none focus:border-primary/40"
+            value={iconKey}
+            onChange={(event) => setIconKey(event.target.value)}
+          >
+            {[
+              "home",
+              "about",
+              "projects",
+              "dashboard",
+              "contact",
+              "contents",
+              "achievements",
+              "chat",
+              "smart-talk",
+            ].map((key) => (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            ))}
+          </select>
         </Field>
         <div className="flex items-end">
           <Btn variant="primary" onClick={add}>
@@ -91,13 +120,23 @@ export default function AdminMenusPage() {
       ) : (
         <Panel className="divide-y divide-white/[0.04]">
           {rows.map((row) => (
-            <div key={row.id} className="flex items-center justify-between gap-4 px-4 py-3">
+            <div
+              key={row.id}
+              className="flex items-center justify-between gap-4 px-4 py-3"
+            >
               <div>
                 <p className="text-sm font-medium text-white">{row.title}</p>
-                <p className="text-xs text-neutral-500">{row.href}</p>
+                <p className="text-xs text-neutral-500">
+                  {row.href} · {row.icon_key || "home"} · order #
+                  {row.sort_order ?? 0}
+                </p>
               </div>
               <div className="flex items-center gap-4">
-                <Toggle checked={row.is_show} onChange={() => toggle(row)} label="Show" />
+                <Toggle
+                  checked={row.is_show}
+                  onChange={() => toggle(row)}
+                  label="Show"
+                />
                 <button
                   type="button"
                   onClick={() => remove(row.id)}

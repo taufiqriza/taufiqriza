@@ -20,8 +20,7 @@ interface LayoutsProps {
 const Layouts = ({ children }: LayoutsProps) => {
   const pathname = usePathname();
   const isAdmin = pathname?.includes("/admin");
-  const isShowChatButton =
-    !pathname?.includes("/chat") && !isAdmin;
+  const isShowChatButton = !pathname?.includes("/chat") && !isAdmin;
 
   useEffect(() => {
     if (!isAdmin) {
@@ -57,7 +56,7 @@ const Layouts = ({ children }: LayoutsProps) => {
       <BottomNav />
       <Notif />
       {isShowChatButton && (
-        <div className="fixed bottom-[5.5rem] right-4 z-30 lg:bottom-6 lg:right-6">
+        <div className="fixed bottom-[calc(5.5rem+var(--safe-bottom))] right-4 z-30 lg:bottom-6 lg:right-6">
           <ChatButton />
         </div>
       )}

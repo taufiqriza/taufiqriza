@@ -19,10 +19,13 @@ const STORAGE_BUCKETS: Partial<Record<TableName, string>> = {
   education: "education",
 };
 
-function withImageUrl<T extends { slug?: string | null; logo?: string | null }>(
-  table: TableName,
-  rows: T[],
-): (T & { image?: string })[] {
+function withImageUrl<
+  T extends {
+    slug?: string | null;
+    image?: string | null;
+    logo?: string | null;
+  },
+>(table: TableName, rows: T[]): Array<T & { image?: string | null }> {
   const supabase = createAdminClient();
   const bucket = STORAGE_BUCKETS[table];
   if (!bucket) return rows;
@@ -37,15 +40,24 @@ function withImageUrl<T extends { slug?: string | null; logo?: string | null }>(
       return { ...item, image: data.publicUrl, logo: data.publicUrl };
     }
 
-    const key = item.slug ? `${item.slug}.webp` : null;
-    if (!key) return item;
-    const { data } = supabase.storage.from(bucket).getPublicUrl(key);
+    if (!item.image) {
+      if (!item.slug) return item;
+      const { data } = supabase.storage
+        .from(bucket)
+        .getPublicUrl(`${item.slug}.webp`);
+      return { ...item, image: data.publicUrl };
+    }
+    if (item.image.startsWith("http") || item.image.startsWith("/")) {
+      return item;
+    }
+    const { data } = supabase.storage.from(bucket).getPublicUrl(item.image);
     return { ...item, image: data.publicUrl };
   });
 }
 
-export async function listRows(table: TableName, orderBy = "id") {
+export async function listRows(table: TableName) {
   const supabase = createAdminClient();
+  const orderBy = table === "contact_messages" ? "created_at" : "sort_order";
   const { data, error } = await supabase
     .from(table)
     .select("*")
@@ -69,9 +81,16 @@ export async function getRow(table: TableName, id: number | string) {
   return withImageUrl(table, [data])[0];
 }
 
-export async function createRow(table: TableName, payload: Record<string, unknown>) {
+export async function createRow(
+  table: TableName,
+  payload: Record<string, unknown>,
+) {
   const supabase = createAdminClient();
-  const { data, error } = await supabase.from(table).insert([payload]).select().single();
+  const { data, error } = await supabase
+    .from(table)
+    .insert([payload])
+    .select()
+    .single();
   if (error) throw new Error(error.message);
   return data;
 }
@@ -125,7 +144,13 @@ export async function getAllSettings() {
 
 export async function getAdminStats(): Promise<AdminStats> {
   const supabase = createAdminClient();
-  const tables = ["projects", "achievements", "careers", "education", "contact_messages"] as const;
+  const tables = [
+    "projects",
+    "achievements",
+    "careers",
+    "education",
+    "contact_messages",
+  ] as const;
 
   const counts = await Promise.all(
     tables.map(async (t) => {
@@ -172,25 +197,31 @@ export async function uploadFile(
   return data.publicUrl;
 }
 
-export async function listStorage(bucket: string) {
+export async function listStorage(bucket: string, prefix = "") {
   const supabase = createAdminClient();
-  const { data, error } = await supabase.storage.from(bucket).list("", {
+  const { data, error } = await supabase.storage.from(bucket).list(prefix, {
     limit: 200,
     sortBy: { column: "created_at", order: "desc" },
   });
   if (error) throw new Error(error.message);
 
-  return (data || []).map((item) => {
-    const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(item.name);
-    return {
-      name: item.name,
-      id: item.id,
-      updated_at: item.updated_at,
-      created_at: item.created_at,
-      metadata: item.metadata,
-      url: urlData.publicUrl,
-    };
-  });
+  return (data || [])
+    .filter((item) => item.id)
+    .map((item) => {
+      const objectPath = prefix ? `${prefix}/${item.name}` : item.name;
+      const { data: urlData } = supabase.storage
+        .from(bucket)
+        .getPublicUrl(objectPath);
+      return {
+        name: item.name,
+        path: objectPath,
+        id: item.id,
+        updated_at: item.updated_at,
+        created_at: item.created_at,
+        metadata: item.metadata,
+        url: urlData.publicUrl,
+      };
+    });
 }
 
 export async function deleteStorageFile(bucket: string, path: string) {

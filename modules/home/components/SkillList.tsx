@@ -8,14 +8,25 @@ import SectionHeading from "@/common/components/elements/SectionHeading";
 import SectionSubHeading from "@/common/components/elements/SectionSubHeading";
 import GlassIcon from "@/common/components/elements/GlassIcon";
 import { STACKS } from "@/common/constants/stacks";
+import useSiteConfig from "@/hooks/useSiteConfig";
 
 const SkillList = () => {
   const t = useTranslations("HomePage");
+  const { data } = useSiteConfig();
+  const activeNames = data?.skills?.length
+    ? new Set(
+        data.skills
+          .filter((skill) => skill.is_active)
+          .map((skill) => skill.name),
+      )
+    : null;
 
   const stacksInArray: Array<
     [string, { icon: JSX.Element; background: string }]
   > = Object.entries(STACKS)
-    .filter(([, value]) => value.isActive)
+    .filter(([name, value]) =>
+      activeNames ? activeNames.has(name) : value.isActive,
+    )
     .map(([name, value]) => [
       name,
       { icon: value.icon, background: value.background },

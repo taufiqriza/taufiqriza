@@ -4,7 +4,9 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import type { SocialLinkRow } from "@/common/types/admin";
-import ResourceForm, { type FormField } from "@/modules/admin/components/ResourceForm";
+import ResourceForm, {
+  type FormField,
+} from "@/modules/admin/components/ResourceForm";
 import { ErrorBox, Loading, PageHeader } from "@/modules/admin/components/ui";
 import { adminApi } from "@/modules/admin/lib/api";
 
@@ -13,7 +15,15 @@ const fields: FormField[] = [
   { name: "title", label: "Title", type: "text", required: true },
   { name: "description", label: "Description", type: "textarea", rows: 2 },
   { name: "href", label: "URL", type: "text", required: true },
-  { name: "icon_key", label: "Icon key", type: "text", required: true },
+  {
+    name: "icon_key",
+    label: "Icon",
+    type: "select",
+    required: true,
+    options: ["gmail", "github", "instagram", "linkedin", "link"].map(
+      (value) => ({ value, label: value }),
+    ),
+  },
   { name: "sort_order", label: "Sort order", type: "number" },
   { name: "is_show", label: "Visible", type: "toggle" },
 ];

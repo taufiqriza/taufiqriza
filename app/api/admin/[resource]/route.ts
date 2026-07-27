@@ -40,6 +40,17 @@ const REVALIDATE: Record<string, string[]> = {
   settings: ["/", "/about"],
 };
 
+const LOCALES = ["en", "id"];
+
+function revalidateResource(resource: string) {
+  for (const route of REVALIDATE[resource] || []) {
+    for (const locale of LOCALES) {
+      const localized = route === "/" ? `/${locale}` : `/${locale}${route}`;
+      revalidatePath(localized);
+    }
+  }
+}
+
 function parseBody(raw: unknown): Record<string, unknown> {
   if (!raw || typeof raw !== "object") return {};
   return raw as Record<string, unknown>;
@@ -148,7 +159,7 @@ export async function POST(
       const key = String(body.key || "");
       if (!key) return badRequest("key is required");
       const data = await repoUpsertSetting(key, body.value);
-      REVALIDATE.settings?.forEach((p) => revalidatePath(p));
+      revalidateResource("settings");
       return NextResponse.json(data, { status: 201 });
     }
 
@@ -164,7 +175,7 @@ export async function POST(
     }
 
     const data = await repoCreate(table, payload);
-    REVALIDATE[resource]?.forEach((p) => revalidatePath(p));
+    revalidateResource(resource);
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
     return serverError(error);

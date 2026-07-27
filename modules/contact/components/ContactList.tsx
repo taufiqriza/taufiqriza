@@ -1,11 +1,33 @@
 import { useTranslations } from "next-intl";
 
+("use client");
+
 import { SOCIAL_MEDIA } from "@/common/constants/socialMedia";
+import { socialIcons, socialStyles } from "@/common/components/socialRegistry";
+import useSiteConfig from "@/hooks/useSiteConfig";
 
 import ContactCard from "./ContactCard";
 
 const ContactList = () => {
-  const filteredSocialMedia = SOCIAL_MEDIA?.filter((social) => social?.isShow);
+  const { data } = useSiteConfig();
+  const configured = (data?.social || []).map((social) => {
+    const key = (social.icon_key || social.name || "link").toLowerCase();
+    const icon = socialIcons[key] || socialIcons.link;
+    const style = socialStyles[key] || socialStyles.link;
+    return {
+      title: social.title,
+      description: social.description || undefined,
+      name: social.name,
+      href: social.href,
+      icon: icon(35),
+      backgroundIcon: icon(275),
+      isShow: social.is_show,
+      ...style,
+    };
+  });
+  const filteredSocialMedia = configured.length
+    ? configured
+    : SOCIAL_MEDIA.filter((social) => social.isShow);
   const t = useTranslations("ContactPage");
 
   return (

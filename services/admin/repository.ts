@@ -21,14 +21,16 @@ function useDb() {
   return isSupabaseConfigured();
 }
 
+function memoryEnabled() {
+  return !useDb() || process.env.ADMIN_MEMORY_STORE === "true";
+}
+
 export async function repoList(table: TableName) {
   if (useDb()) {
-    try {
-      return await db.listRows(table);
-    } catch {
-      // fall through to memory
-    }
+    return db.listRows(table);
   }
+
+  if (!memoryEnabled()) throw new Error("Persistent storage is unavailable");
 
   if (table === "site_settings") {
     const settings = getStore().site_settings;
@@ -47,12 +49,10 @@ export async function repoList(table: TableName) {
 
 export async function repoGet(table: TableName, id: number | string) {
   if (useDb()) {
-    try {
-      return await db.getRow(table, id);
-    } catch {
-      /* memory */
-    }
+    return db.getRow(table, id);
   }
+
+  if (!memoryEnabled()) throw new Error("Persistent storage is unavailable");
 
   if (table === "site_settings") {
     const value = getStore().site_settings[String(id)];
@@ -65,12 +65,10 @@ export async function repoGet(table: TableName, id: number | string) {
 
 export async function repoCreate(table: TableName, payload: AnyRow) {
   if (useDb()) {
-    try {
-      return await db.createRow(table, payload);
-    } catch {
-      /* memory */
-    }
+    return db.createRow(table, payload);
   }
+
+  if (!memoryEnabled()) throw new Error("Persistent storage is unavailable");
 
   if (table === "site_settings") {
     const key = String(payload.key);
@@ -94,12 +92,10 @@ export async function repoUpdate(
   payload: AnyRow,
 ) {
   if (useDb()) {
-    try {
-      return await db.updateRow(table, id, payload);
-    } catch {
-      /* memory */
-    }
+    return db.updateRow(table, id, payload);
   }
+
+  if (!memoryEnabled()) throw new Error("Persistent storage is unavailable");
 
   if (table === "site_settings") {
     getStore().site_settings[String(id)] = payload.value ?? payload;
@@ -115,12 +111,10 @@ export async function repoUpdate(
 
 export async function repoDelete(table: TableName, id: number | string) {
   if (useDb()) {
-    try {
-      return await db.deleteRow(table, id);
-    } catch {
-      /* memory */
-    }
+    return db.deleteRow(table, id);
   }
+
+  if (!memoryEnabled()) throw new Error("Persistent storage is unavailable");
 
   if (table === "site_settings") {
     delete getStore().site_settings[String(id)];
@@ -135,12 +129,10 @@ export async function repoDelete(table: TableName, id: number | string) {
 
 export async function repoStats(): Promise<AdminStats> {
   if (useDb()) {
-    try {
-      return await db.getAdminStats();
-    } catch {
-      /* memory */
-    }
+    return db.getAdminStats();
   }
+
+  if (!memoryEnabled()) throw new Error("Persistent storage is unavailable");
 
   const s = getStore();
   return {
@@ -155,61 +147,43 @@ export async function repoStats(): Promise<AdminStats> {
 
 export async function repoSettings() {
   if (useDb()) {
-    try {
-      return await db.getAllSettings();
-    } catch {
-      /* memory */
-    }
+    return db.getAllSettings();
   }
+  if (!memoryEnabled()) throw new Error("Persistent storage is unavailable");
   return { ...getStore().site_settings };
 }
 
 export async function repoUpsertSetting(key: string, value: unknown) {
   if (useDb()) {
-    try {
-      return await db.upsertSettings(key, value);
-    } catch {
-      /* memory */
-    }
+    return db.upsertSettings(key, value);
   }
+  if (!memoryEnabled()) throw new Error("Persistent storage is unavailable");
   getStore().site_settings[key] = value;
   return { key, value };
 }
 
-export async function repoUpload(
-  bucket: string,
-  path: string,
-  file: File,
-) {
+export async function repoUpload(bucket: string, path: string, file: File) {
   if (useDb()) {
-    try {
-      return await db.uploadFile(bucket, path, file, file.type || "application/octet-stream");
-    } catch {
-      /* memory */
-    }
+    return db.uploadFile(
+      bucket,
+      path,
+      file,
+      file.type || "application/octet-stream",
+    );
   }
-  // memory: return fake public path
-  return `/images/${bucket}/${path}`;
+  throw new Error("Supabase Storage is required for uploads");
 }
 
-export async function repoListStorage(bucket: string) {
+export async function repoListStorage(bucket: string, prefix = "") {
   if (useDb()) {
-    try {
-      return await db.listStorage(bucket);
-    } catch {
-      /* memory */
-    }
+    return db.listStorage(bucket, prefix);
   }
-  return [];
+  throw new Error("Supabase Storage is required for media management");
 }
 
 export async function repoDeleteStorage(bucket: string, path: string) {
   if (useDb()) {
-    try {
-      return await db.deleteStorageFile(bucket, path);
-    } catch {
-      /* memory */
-    }
+    return db.deleteStorageFile(bucket, path);
   }
-  return true;
+  throw new Error("Supabase Storage is required for media management");
 }

@@ -92,14 +92,14 @@ export default function FeaturedProjects() {
                       {hero.is_featured && (
                         <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-2 py-0.5 text-[10px] font-semibold text-primary dark:bg-neutral-900/90">
                           <TbPinnedFilled size={11} />
-                          Featured
+                          {t("projects.featured")}
                         </span>
                       )}
                     </div>
                     <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
                       <div>
                         <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary">
-                          Selected work
+                          {t("projects.eyebrow")}
                         </p>
                         <h3 className="text-xl font-semibold tracking-tight text-neutral-900 transition group-hover:text-primary dark:text-white">
                           {hero.title}

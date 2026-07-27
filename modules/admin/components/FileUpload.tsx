@@ -14,6 +14,9 @@ type Props = {
   pathPrefix?: string;
   accept?: string;
   hint?: string;
+  required?: boolean;
+  objectName?: string;
+  requireObjectName?: boolean;
 };
 
 export default function FileUpload({
@@ -24,6 +27,9 @@ export default function FileUpload({
   pathPrefix = "",
   accept = "image/png,image/jpeg,image/webp,image/gif,image/svg+xml",
   hint = "PNG, JPG, WEBP · max 5MB",
+  required = false,
+  objectName,
+  requireObjectName = false,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
@@ -34,6 +40,10 @@ export default function FileUpload({
   const upload = useCallback(
     async (file: File) => {
       setError("");
+      if (requireObjectName && !objectName) {
+        setError("Fill title/name or slug before uploading the image");
+        return;
+      }
       if (!file.type.startsWith("image/") && !file.type.includes("svg")) {
         setError("Only image files are allowed");
         return;
@@ -47,15 +57,21 @@ export default function FileUpload({
       setProgress(20);
       try {
         const ext =
-          file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") ||
-          "webp";
+          file.name
+            .split(".")
+            .pop()
+            ?.toLowerCase()
+            .replace(/[^a-z0-9]/g, "") || "webp";
         const safe = file.name
           .replace(/\.[^.]+$/, "")
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-|-$/g, "")
           .slice(0, 40);
-        const path = `${pathPrefix}${pathPrefix && !pathPrefix.endsWith("/") ? "/" : ""}${Date.now()}-${safe || "image"}.${ext}`;
+        const generatedName = objectName
+          ? `${objectName.replace(/[^a-z0-9-]/gi, "-").toLowerCase()}.webp`
+          : `${Date.now()}-${safe || "image"}.${ext}`;
+        const path = `${pathPrefix}${pathPrefix && !pathPrefix.endsWith("/") ? "/" : ""}${generatedName}`;
 
         setProgress(55);
         const res = await adminApi.upload(bucket, path, file);
@@ -68,7 +84,7 @@ export default function FileUpload({
         setTimeout(() => setProgress(0), 400);
       }
     },
-    [bucket, onChange, pathPrefix],
+    [bucket, objectName, onChange, pathPrefix, requireObjectName],
   );
 
   const onFiles = (files: FileList | null) => {
@@ -160,6 +176,7 @@ export default function FileUpload({
         ref={inputRef}
         type="file"
         accept={accept}
+        required={required && !value}
         className="hidden"
         onChange={(e) => {
           onFiles(e.target.files);

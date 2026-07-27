@@ -3,7 +3,10 @@ import { createClient } from "@/common/utils/server";
 export const getProjectsData = async () => {
   const supabase = createClient();
 
-  let { data, error } = await supabase.from("projects").select();
+  let { data, error } = await supabase
+    .from("projects")
+    .select()
+    .order("sort_order", { ascending: true });
 
   if (error) throw new Error(error.message);
   if (!data) return [];
@@ -39,7 +42,11 @@ export const getProjectsDataBySlug = async (slug: string) => {
   if (error) throw new Error(error.message);
   if (!data) return null;
 
-  if (data.image && (String(data.image).startsWith("http") || String(data.image).startsWith("/"))) {
+  if (
+    data.image &&
+    (String(data.image).startsWith("http") ||
+      String(data.image).startsWith("/"))
+  ) {
     return data;
   }
 

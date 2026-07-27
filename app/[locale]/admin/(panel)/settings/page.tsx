@@ -122,7 +122,7 @@ export default function AdminSettingsPage() {
 
       <form onSubmit={onSubmit} className="space-y-6">
         <Panel className="grid gap-4 p-5 sm:grid-cols-2">
-          <p className="sm:col-span-2 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-500 sm:col-span-2">
             Profile
           </p>
           <Field label="Name">
@@ -134,27 +134,32 @@ export default function AdminSettingsPage() {
           <Field label="Username">
             <Input
               value={profile.username}
-              onChange={(e) => setProfile({ ...profile, username: e.target.value })}
+              onChange={(e) =>
+                setProfile({ ...profile, username: e.target.value })
+              }
             />
           </Field>
           <Field label="Email">
             <Input
               type="email"
               value={profile.email}
-              onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+              onChange={(e) =>
+                setProfile({ ...profile, email: e.target.value })
+              }
             />
           </Field>
           <Field label="Location">
             <Input
               value={profile.location}
-              onChange={(e) => setProfile({ ...profile, location: e.target.value })}
+              onChange={(e) =>
+                setProfile({ ...profile, location: e.target.value })
+              }
             />
           </Field>
           <div className="sm:col-span-2">
             <FileUpload
               label="Profile photo"
               bucket="profile"
-              pathPrefix="avatar"
               value={profile.photo}
               onChange={(url) => setProfile({ ...profile, photo: url })}
               hint="Upload profile photo · PNG/JPG/WEBP max 5MB"
@@ -166,19 +171,30 @@ export default function AdminSettingsPage() {
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
             About (EN)
           </p>
-          <Field label="Paragraphs" hint="Separate paragraphs with a blank line">
-            <Textarea rows={8} value={aboutEn} onChange={(e) => setAboutEn(e.target.value)} />
+          <Field
+            label="Paragraphs"
+            hint="Separate paragraphs with a blank line"
+          >
+            <Textarea
+              rows={8}
+              value={aboutEn}
+              onChange={(e) => setAboutEn(e.target.value)}
+            />
           </Field>
           <p className="pt-2 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
             About (ID)
           </p>
           <Field label="Paragraf">
-            <Textarea rows={8} value={aboutId} onChange={(e) => setAboutId(e.target.value)} />
+            <Textarea
+              rows={8}
+              value={aboutId}
+              onChange={(e) => setAboutId(e.target.value)}
+            />
           </Field>
         </Panel>
 
         <Panel className="grid gap-4 p-5 sm:grid-cols-2">
-          <p className="sm:col-span-2 text-xs font-medium uppercase tracking-[0.16em] text-neutral-500">
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-neutral-500 sm:col-span-2">
             SEO
           </p>
           <Field label="Site name">

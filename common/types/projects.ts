@@ -10,8 +10,9 @@ export type ProjectItem = {
   content?: string | null;
   is_show: boolean;
   is_featured: boolean;
+  sort_order?: number;
 };
 
 export type ProjectItemProps = {
   projects: ProjectItem[];
-}
+};

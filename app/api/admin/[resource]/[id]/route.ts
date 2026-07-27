@@ -40,6 +40,16 @@ const REVALIDATE: Record<string, string[]> = {
   messages: [],
 };
 
+const LOCALES = ["en", "id"];
+
+function revalidateResource(resource: string) {
+  for (const route of REVALIDATE[resource] || []) {
+    for (const locale of LOCALES) {
+      revalidatePath(route === "/" ? `/${locale}` : `/${locale}${route}`);
+    }
+  }
+}
+
 function normalizePayload(resource: string, body: Record<string, unknown>) {
   const payload = { ...body };
   delete payload.id;
@@ -58,7 +68,11 @@ function normalizePayload(resource: string, body: Record<string, unknown>) {
     }
   }
 
-  if (resource === "achievements" && !payload.slug && typeof payload.name === "string") {
+  if (
+    resource === "achievements" &&
+    !payload.slug &&
+    typeof payload.name === "string"
+  ) {
     payload.slug = slugify(payload.name);
   }
 
@@ -71,13 +85,22 @@ function normalizePayload(resource: string, body: Record<string, unknown>) {
     }
   }
 
-  for (const key of ["is_show", "is_featured", "is_active", "is_external", "is_read"]) {
+  for (const key of [
+    "is_show",
+    "is_featured",
+    "is_active",
+    "is_external",
+    "is_read",
+  ]) {
     if (payload[key] !== undefined) payload[key] = Boolean(payload[key]);
   }
 
-  if (payload.sort_order !== undefined) payload.sort_order = Number(payload.sort_order) || 0;
-  if (payload.start_year !== undefined) payload.start_year = Number(payload.start_year);
-  if (payload.end_year !== undefined) payload.end_year = Number(payload.end_year);
+  if (payload.sort_order !== undefined)
+    payload.sort_order = Number(payload.sort_order) || 0;
+  if (payload.start_year !== undefined)
+    payload.start_year = Number(payload.start_year);
+  if (payload.end_year !== undefined)
+    payload.end_year = Number(payload.end_year);
 
   return payload;
 }
@@ -93,8 +116,7 @@ export async function GET(
     const table = RESOURCES[params.resource];
     if (!table) return badRequest("Unknown resource");
 
-    const id =
-      params.resource === "settings" ? params.id : Number(params.id);
+    const id = params.resource === "settings" ? params.id : Number(params.id);
     const data = await repoGet(table, id);
     if (!data) {
       return NextResponse.json({ message: "Not found" }, { status: 404 });
@@ -118,7 +140,7 @@ export async function PUT(
 
     if (resource === "settings") {
       const data = await repoUpsertSetting(id, body.value ?? body);
-      REVALIDATE.settings?.forEach((p) => revalidatePath(p));
+      revalidateResource("settings");
       return NextResponse.json(data);
     }
 
@@ -127,7 +149,7 @@ export async function PUT(
 
     const payload = normalizePayload(resource, body);
     const data = await repoUpdate(table, Number(id), payload);
-    REVALIDATE[resource]?.forEach((p) => revalidatePath(p));
+    revalidateResource(resource);
     return NextResponse.json(data);
   } catch (error) {
     return serverError(error);
@@ -152,10 +174,9 @@ export async function DELETE(
     const table = RESOURCES[params.resource];
     if (!table) return badRequest("Unknown resource");
 
-    const id =
-      params.resource === "settings" ? params.id : Number(params.id);
+    const id = params.resource === "settings" ? params.id : Number(params.id);
     await repoDelete(table, id);
-    REVALIDATE[params.resource]?.forEach((p) => revalidatePath(p));
+    revalidateResource(params.resource);
     return NextResponse.json({ ok: true });
   } catch (error) {
     return serverError(error);

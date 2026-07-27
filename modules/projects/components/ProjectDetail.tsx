@@ -26,14 +26,21 @@ const ProjectDetail = ({
             {t("tech_stack")} :{" "}
           </span>
           <div className="flex flex-wrap items-center gap-3">
-            {stacks.map((stack: string, index: number) => {
+            {(stacks || []).map((stack: string) => {
               const stackData = STACKS[stack];
-
+              if (!stackData) {
+                return (
+                  <span
+                    key={stack}
+                    className="rounded-md border border-primary/10 bg-primary/5 px-2 py-1 text-xs text-primary"
+                  >
+                    {stack}
+                  </span>
+                );
+              }
               return (
-                <Tooltip title={stack} key={index}>
-                  <div className={`${stackData.color}`}>
-                    {STACKS[stack].icon}
-                  </div>
+                <Tooltip title={stack} key={stack}>
+                  <div className={`${stackData.color}`}>{stackData.icon}</div>
                 </Tooltip>
               );
             })}
@@ -46,13 +53,13 @@ const ProjectDetail = ({
         />
       </div>
 
-      <div className="overflow-hidden">
+      <div className="corp-card aspect-[16/9] overflow-hidden">
         <Image
           src={image}
           alt={title}
           width={1000}
           height={400}
-          className="transition duration-500 hover:scale-[1.04]"
+          className="h-full w-full object-cover transition duration-500 hover:scale-[1.02]"
         />
       </div>
 

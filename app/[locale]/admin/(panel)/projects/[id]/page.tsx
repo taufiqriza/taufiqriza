@@ -4,9 +4,17 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import type { ProjectRow } from "@/common/types/admin";
-import ResourceForm, { type FormField } from "@/modules/admin/components/ResourceForm";
+import ResourceForm, {
+  type FormField,
+} from "@/modules/admin/components/ResourceForm";
 import { ErrorBox, Loading, PageHeader } from "@/modules/admin/components/ui";
 import { adminApi } from "@/modules/admin/lib/api";
+import { STACKS } from "@/common/constants/stacks";
+
+const stackOptions = Object.keys(STACKS).map((stack) => ({
+  value: stack,
+  label: stack,
+}));
 
 const fields: FormField[] = [
   { name: "title", label: "Title", type: "text", required: true },
@@ -18,9 +26,21 @@ const fields: FormField[] = [
     bucket: "projects",
     hint: "Drop project cover · PNG/JPG/WEBP max 5MB",
   },
-  { name: "description", label: "Description", type: "textarea", rows: 3, required: true },
+  {
+    name: "description",
+    label: "Description",
+    type: "textarea",
+    rows: 3,
+    required: true,
+  },
   { name: "content", label: "Content (Markdown)", type: "textarea", rows: 12 },
-  { name: "stacks", label: "Stacks", type: "text", hint: "Comma-separated" },
+  {
+    name: "stacks",
+    label: "Tech stacks",
+    type: "multiselect",
+    options: stackOptions,
+    hint: "Select stacks registered in the public design system",
+  },
   { name: "link_demo", label: "Demo URL", type: "url" },
   { name: "link_github", label: "GitHub URL", type: "url" },
   { name: "sort_order", label: "Sort order", type: "number" },
@@ -57,7 +77,7 @@ export default function EditProjectPage() {
         redirectTo="/admin/projects"
         initial={{
           ...data,
-          stacks: (data.stacks || []).join(", "),
+          stacks: data.stacks || [],
           image: data.image || "",
         }}
       />

@@ -14,7 +14,15 @@
     "projects": {
       "title": "Selected work",
       "sub_title": "Institutional platforms and production systems.",
-      "view_all": "All projects"
+      "view_all": "All projects",
+      "featured": "Featured",
+      "eyebrow": "Selected work"
+    },
+    "hero": {
+      "available": "Available",
+      "role": "Software Engineer",
+      "projects": "Projects",
+      "contact": "Contact"
     },
     "bento": {
       "title": "Featured Sections",

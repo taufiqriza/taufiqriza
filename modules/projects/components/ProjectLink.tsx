@@ -17,7 +17,7 @@ interface LinkComponentProps {
 
 const LinkComponent = ({ url, text, icon }: LinkComponentProps) => {
   return (
-    <Link href={url} target="_blank">
+    <Link href={url} target="_blank" rel="noopener noreferrer">
       <div className="flex items-center gap-2 font-medium text-neutral-700 dark:text-neutral-300">
         <i>{icon}</i>
         <p className="text-sm transition-all duration-300 dark:text-primary hover:dark:text-primary-400">

@@ -34,11 +34,23 @@ create table if not exists public.achievements (
   url_credential text,
   issue_date date not null default current_date,
   expiration_date date,
+  image text,
   is_show boolean not null default true,
   sort_order int not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.achievements add column if not exists image text;
+alter table public.projects add column if not exists content text;
+alter table public.projects add column if not exists link_demo text;
+alter table public.projects add column if not exists link_github text;
+alter table public.projects add column if not exists stacks text[] not null default '{}';
+alter table public.projects add column if not exists is_show boolean not null default true;
+alter table public.projects add column if not exists is_featured boolean not null default false;
+alter table public.projects add column if not exists sort_order int not null default 0;
+alter table public.projects add column if not exists created_at timestamptz not null default now();
+alter table public.projects add column if not exists updated_at timestamptz not null default now();
 
 create table if not exists public.careers (
   id bigint generated always as identity primary key,
@@ -202,14 +214,15 @@ values
   ('careers', 'careers', true),
   ('education', 'education', true),
   ('profile', 'profile', true),
-  ('media', 'media', true)
+  ('media', 'media', true),
+  ('icons', 'icons', true)
 on conflict (id) do nothing;
 
 -- Seed site settings
 insert into public.site_settings (key, value) values
-  ('profile', '{"name":"Your Name","username":"username","email":"you@example.com","location":"Indonesia","photo":"/images/satria.jpg"}'::jsonb),
-  ('about', '{"en":["Bio paragraph 1.","Bio paragraph 2."],"id":["Paragraf bio 1.","Paragraf bio 2."]}'::jsonb),
-  ('seo', '{"description":"Personal website, portfolio","keywords":"portfolio, developer","siteName":"Portfolio"}'::jsonb)
+  ('profile', '{"name":"Muhamad Taufiq Riza","username":"taufiqriza","email":"muhamad.taufiqriza@gmail.com","location":"Indonesia","photo":"/images/taufiq.jpg"}'::jsonb),
+  ('about', '{"en":["Software Engineer and Full Stack Developer focused on reliable institutional platforms."],"id":["Software Engineer dan Full Stack Developer yang berfokus pada platform institusi yang andal."]}'::jsonb),
+  ('seo', '{"description":"Software Engineer & Full Stack Developer portfolio","keywords":"software engineer, full stack, laravel, next.js","siteName":"Muhamad Taufiq Riza"}'::jsonb)
 on conflict (key) do nothing;
 
 -- Seed default menus

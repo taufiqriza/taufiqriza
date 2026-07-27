@@ -3,12 +3,12 @@
 import { useCallback, useEffect, useState } from "react";
 
 import type { SkillRow } from "@/common/types/admin";
+import { STACKS } from "@/common/constants/stacks";
 import { adminApi } from "@/modules/admin/lib/api";
 import {
   Btn,
   ErrorBox,
   Field,
-  Input,
   Loading,
   PageHeader,
   Panel,
@@ -17,7 +17,7 @@ import {
 
 export default function AdminSkillsPage() {
   const [rows, setRows] = useState<SkillRow[]>([]);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(Object.keys(STACKS)[0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
@@ -43,10 +43,11 @@ export default function AdminSkillsPage() {
     try {
       await adminApi.create("skills", {
         name: name.trim(),
+        icon_key: name.trim(),
         is_active: true,
         sort_order: rows.length,
       });
-      setName("");
+      setName(Object.keys(STACKS)[0]);
       await load();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed");
@@ -58,7 +59,9 @@ export default function AdminSkillsPage() {
   async function toggle(row: SkillRow) {
     await adminApi.update("skills", row.id, { is_active: !row.is_active });
     setRows((prev) =>
-      prev.map((r) => (r.id === row.id ? { ...r, is_active: !r.is_active } : r)),
+      prev.map((r) =>
+        r.id === row.id ? { ...r, is_active: !r.is_active } : r,
+      ),
     );
   }
 
@@ -81,13 +84,18 @@ export default function AdminSkillsPage() {
       )}
 
       <Panel className="mb-6 flex flex-col gap-3 p-4 sm:flex-row sm:items-end">
-        <Field label="New skill" className="flex-1">
-          <Input
+        <Field label="Skill registry" className="flex-1">
+          <select
+            className="w-full rounded-xl border border-white/[0.08] bg-black/40 px-3 py-2.5 text-sm text-neutral-100 outline-none focus:border-primary/40"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. Golang"
-            onKeyDown={(e) => e.key === "Enter" && addSkill()}
-          />
+          >
+            {Object.keys(STACKS).map((stack) => (
+              <option key={stack} value={stack}>
+                {stack}
+              </option>
+            ))}
+          </select>
         </Field>
         <Btn variant="primary" onClick={addSkill} disabled={saving}>
           Add
@@ -105,7 +113,9 @@ export default function AdminSkillsPage() {
             >
               <div>
                 <p className="text-sm font-medium text-white">{row.name}</p>
-                <p className="text-[11px] text-neutral-600">#{row.sort_order ?? 0}</p>
+                <p className="text-[11px] text-neutral-600">
+                  {row.icon_key || row.name} · order #{row.sort_order ?? 0}
+                </p>
               </div>
               <div className="flex items-center gap-4">
                 <Toggle checked={row.is_active} onChange={() => toggle(row)} />

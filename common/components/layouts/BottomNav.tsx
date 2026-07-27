@@ -11,6 +11,7 @@ import {
 
 import cn from "@/common/libs/clsxm";
 import { Link, usePathname } from "@/i18n/navigation";
+import useSiteConfig from "@/hooks/useSiteConfig";
 
 const ITEMS = [
   { title: "Home", href: "/", icon: BiHomeCircle },
@@ -23,6 +24,23 @@ const ITEMS = [
 export default function BottomNav() {
   const pathname = usePathname();
   const t = useTranslations("Navigation");
+  const { data } = useSiteConfig();
+  const configured = (data?.menus || [])
+    .filter((item) =>
+      ["/", "/about", "/projects", "/dashboard", "/contact"].includes(
+        item.href,
+      ),
+    )
+    .slice(0, 5);
+  const items =
+    configured.length === 5
+      ? ITEMS.map((fallback) => {
+          const item = configured.find(
+            (configuredItem) => configuredItem.href === fallback.href,
+          );
+          return item ? { ...fallback, title: item.title } : fallback;
+        })
+      : ITEMS;
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -39,7 +57,7 @@ export default function BottomNav() {
         <div className="relative overflow-hidden rounded-2xl border border-primary/15 bg-white/90 shadow-[0_-4px_40px_-8px_rgba(6,92,194,0.25)] backdrop-blur-xl dark:border-primary/20 dark:bg-neutral-950/90">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
           <ul className="grid grid-cols-5">
-            {ITEMS.map((item) => {
+            {items.map((item) => {
               const active = isActive(item.href);
               const Icon = item.icon;
               return (

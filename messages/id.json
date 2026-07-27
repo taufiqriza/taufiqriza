@@ -14,7 +14,15 @@
     "projects": {
       "title": "Karya pilihan",
       "sub_title": "Platform institusi dan sistem production.",
-      "view_all": "Semua proyek"
+      "view_all": "Semua proyek",
+      "featured": "Unggulan",
+      "eyebrow": "Karya pilihan"
+    },
+    "hero": {
+      "available": "Tersedia",
+      "role": "Software Engineer",
+      "projects": "Proyek",
+      "contact": "Kontak"
     },
     "bento": {
       "title": "Bagian Unggulan",

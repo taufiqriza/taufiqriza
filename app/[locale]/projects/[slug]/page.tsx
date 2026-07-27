@@ -8,6 +8,8 @@ import { ProjectItem } from "@/common/types/projects";
 import { METADATA } from "@/common/constants/metadata";
 import { loadMdxFiles } from "@/common/libs/mdx";
 import { getProjectsDataBySlug } from "@/services/projects";
+import { PROJECTS } from "@/common/constants/projects";
+import { notFound } from "next/navigation";
 
 interface ProjectDetailPageProps {
   params: {
@@ -16,11 +18,17 @@ interface ProjectDetailPageProps {
   };
 }
 
-const getProjectDetail = async (slug: string): Promise<ProjectItem> => {
-  const projects = await getProjectsDataBySlug(slug);
+const getProjectDetail = async (slug: string): Promise<ProjectItem | null> => {
+  let project: ProjectItem | null = null;
+  try {
+    project = await getProjectsDataBySlug(slug);
+  } catch {
+    project = PROJECTS.find((item) => item.slug === slug) || null;
+  }
+  if (!project) return null;
   const contents = loadMdxFiles();
   const content = contents.find((item) => item.slug === slug);
-  const response = { ...projects, content: content?.content };
+  const response = { ...project, content: project.content || content?.content };
   return JSON.parse(JSON.stringify(response));
 };
 
@@ -28,6 +36,7 @@ export const generateMetadata = async ({
   params,
 }: ProjectDetailPageProps): Promise<Metadata> => {
   const project = await getProjectDetail(params?.slug);
+  if (!project) return {};
   const locale = params.locale || "en";
 
   return {
@@ -50,6 +59,7 @@ export const generateMetadata = async ({
 
 const ProjectDetailPage = async ({ params }: ProjectDetailPageProps) => {
   const data = await getProjectDetail(params?.slug);
+  if (!data) notFound();
 
   return (
     <Container data-aos="fade-up">

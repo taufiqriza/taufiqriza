@@ -9,13 +9,13 @@ interface ImageProps extends NextImageProps {
 }
 
 const Image = (props: ImageProps) => {
-  const { alt, src, className, rounded, ...rest } = props;
+  const { alt, src, className, rounded, priority, loading, ...rest } = props;
   const [isLoading, setLoading] = useState(true);
 
   return (
     <div
       className={clsx(
-        "overflow-hidden",
+        "h-full w-full overflow-hidden",
         isLoading ? "animate-pulse" : "",
         rounded,
       )}
@@ -31,11 +31,11 @@ const Image = (props: ImageProps) => {
         )}
         src={src}
         alt={alt}
-        loading="lazy"
-        quality={75}
-        unoptimized
-        // priority
+        loading={priority ? undefined : loading || "lazy"}
+        priority={priority}
+        quality={82}
         onLoad={() => setLoading(false)}
+        onError={() => setLoading(false)}
         {...rest}
       />
     </div>
