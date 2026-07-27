@@ -1,6 +1,6 @@
-import { useTranslations } from "next-intl";
+"use client";
 
-("use client");
+import { useTranslations } from "next-intl";
 
 import { SOCIAL_MEDIA } from "@/common/constants/socialMedia";
 import { socialIcons, socialStyles } from "@/common/components/socialRegistry";

@@ -1,6 +1,6 @@
-import React from "react";
+"use client";
 
-("use client");
+import React from "react";
 
 import { MENU_ITEMS } from "@/common/constants/menu";
 import useSiteConfig from "@/hooks/useSiteConfig";
